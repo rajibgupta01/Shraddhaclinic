@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book an Appointment - Shraddha Joint & Sports Clinic</title>
+  <meta name="description" content="Secure a consultation slot with Dr. Rahul Shukla. Fill in patient details, choose an available time slot, and send your confirmation on WhatsApp.">
+  <link rel="icon" type="image/png" href="assets/img/favicon.png">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+  <!-- Spatial Background Blobs -->
+  <div class="blur-blobs-container">
+    <div class="blur-blob blur-blob-1"></div>
+    <div class="blur-blob blur-blob-2"></div>
+  </div>
+
+  <!-- Sticky Header -->
+  <header>
+    <div class="header-container">
+      <a href="index.html" class="logo-link">
+        <img src="assets/img/logo-header.jpg" alt="Shraddha Joint & Sports Clinic">
+      </a>
+
+      <button class="mobile-nav-toggle" aria-label="Toggle Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <nav class="nav-menu">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="about.html" class="nav-link">About Doctor</a>
+        <a href="services.html" class="nav-link">Services</a>
+        <a href="schedule.html" class="nav-link">Schedule</a>
+        <a href="appointment.html" class="nav-link">Book Appointment</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </nav>
+
+      <div class="header-ctas">
+        <a href="tel:+919713154247" class="btn btn-outline" style="padding: 8px 18px; font-size: 0.9rem;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          Call
+        </a>
+        <a href="appointment.html" class="btn btn-accent" style="padding: 8px 18px; font-size: 0.9rem;">Book Now</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Page Header banner -->
+  <section class="bg-light" style="padding: 48px 0; border-bottom: 1px solid var(--border-color);">
+    <div class="container text-center">
+      <h1 style="font-size: 2.5rem; margin-bottom: 8px;">Appointment Booking</h1>
+      <p style="color: var(--gray-text); font-size: 1.1rem; max-width: 600px; margin: 0 auto;">Submit your details to secure an outpatient consultation slot.</p>
+    </div>
+  </section>
+
+  <!-- Booking form container -->
+  <section>
+    <div class="container">
+      <div class="booking-container">
+        
+        <!-- Form Card -->
+        <div id="bookingCard" class="booking-card">
+          <form id="appointmentForm" autocomplete="off">
+            <h2 style="font-size: 1.5rem; margin-bottom: 24px; border-bottom: 2px solid var(--primary); padding-bottom: 8px; display: inline-block;">Patient Information</h2>
+            
+            <div class="form-grid">
+              <!-- Patient Name -->
+              <div class="form-group">
+                <label for="patient_name">Patient's Full Name <span style="color: #E53E3E">*</span></label>
+                <input type="text" id="patient_name" class="form-control" placeholder="e.g. Rajendra Sharma" required>
+              </div>
+
+              <!-- Phone Number -->
+              <div class="form-group">
+                <label for="patient_phone">Phone Number / WhatsApp <span style="color: #E53E3E">*</span></label>
+                <input type="tel" id="patient_phone" class="form-control" placeholder="e.g. +91 98765 43210" required>
+                <span class="form-helper">Used to contact you for confirming availability.</span>
+              </div>
+
+              <!-- Age -->
+              <div class="form-group">
+                <label for="patient_age">Age <span style="color: #E53E3E">*</span></label>
+                <input type="number" id="patient_age" class="form-control" placeholder="e.g. 45" min="1" max="120" required>
+              </div>
+
+              <!-- Concern Dropdown -->
+              <div class="form-group">
+                <label for="concern_type">Concern / Treatment Type <span style="color: #E53E3E">*</span></label>
+                <select id="concern_type" class="form-control" required>
+                  <option value="" disabled selected>-- Select Core Concern --</option>
+                  <option value="Joint Pain & Arthritis">Joint Pain & Arthritis</option>
+                  <option value="Sports Injury / Ligament Tear">Sports Injury / Ligament Tear</option>
+                  <option value="Bone Fracture & Trauma Care">Bone Fracture & Trauma Care</option>
+                  <option value="Knee & Hip Joint Replacement Consultation">Knee & Hip Joint Replacement Consultation</option>
+                  <option value="Arthroscopy Consultation">Arthroscopy Consultation</option>
+                  <option value="Physiotherapy / Rehabilitation Guidance">Physiotherapy / Rehabilitation Guidance</option>
+                  <option value="Post-Surgery Follow-up">Post-Surgery Follow-up</option>
+                  <option value="General Orthopedic Consultation">General Orthopedic Consultation</option>
+                </select>
+              </div>
+
+              <!-- Date Picker -->
+              <div class="form-group">
+                <label for="appointment_date">Appointment Date <span style="color: #E53E3E">*</span></label>
+                <input type="date" id="appointment_date" class="form-control" required>
+              </div>
+
+              <!-- Hidden Slot value -->
+              <input type="hidden" id="selected_slot" required>
+
+              <!-- Preferred Slot selector -->
+              <div class="form-group full-width">
+                <label>Available Consultation Slots <span style="color: #E53E3E">*</span></label>
+                <div id="formSlotsContainer" class="slots-grid form-slots-selector">
+                  <!-- Rendered dynamically by booking.js based on date input -->
+                </div>
+                <span class="form-helper">Click a slot to select it. Only free slots are active.</span>
+              </div>
+
+              <!-- Message -->
+              <div class="form-group full-width">
+                <label for="patient_message">Brief Description of Concern (Optional)</label>
+                <textarea id="patient_message" class="form-control" placeholder="Describe symptoms, duration of joint pain, injury history, etc."></textarea>
+              </div>
+            </div>
+
+            <div style="text-align: right;">
+              <button type="submit" class="btn btn-accent" style="font-size: 1.05rem; padding: 14px 36px;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                Confirm Appointment
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Success Confirmation Card (Initially Hidden) -->
+        <div id="successCard" class="booking-card success-card" style="display: none;">
+          <div class="success-icon">✓</div>
+          <h3>Booking Request Received!</h3>
+          <p>We have provisionally logged your booking in our system. To finalize and secure your spot, please share the details with our clinic coordinator via WhatsApp.</p>
+
+          <div class="booking-details-box">
+            <h4 style="margin-bottom: 12px; color: var(--primary); text-transform: uppercase; font-size: 0.85rem; letter-spacing: 0.5px;">Appointment Summary</h4>
+            <p><strong>Patient Name:</strong> <span id="successName">Name</span></p>
+            <p><strong>Preferred Date:</strong> <span id="successDate">Date</span></p>
+            <p><strong>Preferred Slot:</strong> <span id="successSlot">Slot</span></p>
+            <p><strong>Contact Phone:</strong> <span id="successPhone">Phone</span></p>
+            <p><strong>Concern:</strong> <span id="successConcern">Concern</span></p>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 16px; max-width: 400px; margin: 0 auto;">
+            <a id="sendWhatsAppBtn" href="#" target="_blank" class="btn btn-whatsapp" style="font-size: 1.05rem;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+              Confirm on WhatsApp
+            </a>
+            <a href="schedule.html" class="btn btn-outline">Check Public Calendar</a>
+            <a href="index.html" class="btn btn-primary" style="background-color: var(--dark);">Back to Homepage</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-about">
+          <h3>Shraddha Joint & Sports Clinic</h3>
+          <p>Led by expert orthopedic surgeon Dr. Rahul Shukla, we provide dedicated clinical consultation and surgical solutions for joints, hips, knees, fractures, and sports-related injuries.</p>
+          <div class="footer-hours-strip">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            Open Monday - Saturday: Until 8:00 PM
+          </div>
+        </div>
+        
+        <div class="footer-links">
+          <h4>Quick Links</h4>
+          <ul class="footer-links-list">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Doctor</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="schedule.html">Public Schedule</a></li>
+            <li><a href="appointment.html">Book Appointment</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="admin.html" style="opacity: 0.6;">Admin Dashboard</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-contact">
+          <h4>Get in Touch</h4>
+          <ul class="footer-contact-list">
+            <li>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"/><circle cx="12" cy="10" r="3"/></svg>
+              <span>1509, Home Science College Rd, Napier Town, Jabalpur, MP 482002</span>
+            </li>
+            <li>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              <span>+91 97131 54247<br>+91 72476 30605</span>
+            </li>
+            <li>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+              <a href="https://wa.me/919713154247" target="_blank" style="color: #25D366; font-weight: 500;">Chat on WhatsApp</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p class="footer-disclaimer">
+          Disclaimer: Information provided on this website is for appointment coordination and clinic hours reference only. Please consult Dr. Rahul Shukla directly for professional medical advice, diagnosis, or treatments.
+        </p>
+        <p class="footer-copyright">
+          &copy; 2026 Shraddha Joint & Sports Clinic. All rights reserved. | Google Rating: 5.0 ★ (68 reviews)
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/booking.js"></script>
+</body>
+</html>

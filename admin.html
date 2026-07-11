@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - Shraddha Joint & Sports Clinic</title>
+  <link rel="icon" type="image/png" href="assets/img/favicon.png">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body style="background-color: var(--bg-color);">
+
+  <!-- Spatial Background Blobs -->
+  <div class="blur-blobs-container">
+    <div class="blur-blob blur-blob-1"></div>
+    <div class="blur-blob blur-blob-2"></div>
+  </div>
+
+  <!-- PIN Login Card (Initially Visible) -->
+  <div id="adminLoginCard" class="admin-login-container">
+    <div class="admin-login-card">
+      <div style="display:flex; justify-content:center; margin-bottom:16px;">
+        <img src="assets/img/logo-large.png" alt="Logo" style="height: 72px; width: auto; background-color: white; padding: 4px; border-radius: 8px;">
+      </div>
+      <h2 style="margin-left: 15px;">Admin Portal</h2>
+      <p style="color: var(--gray-text); font-size: 0.9rem; margin-bottom: 24px; text-align: center;">Enter your administrator security PIN to view patient bookings.</p>
+      
+      <form id="loginForm" autocomplete="off">
+        <div class="form-group" style="margin-bottom: 20px; text-align: left;">
+          <label for="adminPin">Security PIN</label>
+          <input type="password" id="adminPin" class="form-control" placeholder="••••" required style="text-align: center; letter-spacing: 6px; font-size: 1.25rem;">
+          <p id="loginError" style="color: #E53E3E; font-size: 0.85rem; margin-top: 8px; display: none; text-align: center; font-weight: 500;"></p>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width: 100%;">Log In</button>
+      </form>
+      
+      <div style="margin-top: 24px; text-align: center;">
+        <a href="index.html" style="font-size: 0.85rem; color: var(--primary); font-weight: 500;">← Back to Website</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Admin Dashboard Container (Initially Hidden) -->
+  <div id="adminDashboard" style="display: none; padding: 40px 0;">
+    <div class="admin-dashboard-container">
+      
+      <!-- Dashboard Top Header -->
+      <div class="admin-header">
+        <h1>
+          <img src="assets/img/logo-header.jpg" alt="Logo" style="height: 44px; width: auto; border-radius: 4px;">
+          <span>Shraddha Clinic Admin Panel</span>
+        </h1>
+        <div class="admin-header-btns">
+          <button id="btnExportCSV" class="btn btn-outline" style="padding: 10px 20px; font-size: 0.9rem;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Export CSV
+          </button>
+          <button id="btnPrint" class="btn btn-primary" style="padding: 10px 20px; font-size: 0.9rem;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+            Print List
+          </button>
+          <button id="logoutBtn" class="btn btn-accent" style="padding: 10px 20px; font-size: 0.9rem; background-color: #E53E3E;">Logout</button>
+        </div>
+      </div>
+
+      <!-- Stats Grid -->
+      <div class="admin-stats-grid">
+        <div class="admin-stat-card">
+          <div id="statTotal" class="admin-stat-val">0</div>
+          <div class="admin-stat-lbl">Total Bookings</div>
+        </div>
+        <div class="admin-stat-card">
+          <div id="statNew" class="admin-stat-val" style="color: var(--primary);">0</div>
+          <div class="admin-stat-lbl">New/Pending</div>
+        </div>
+        <div class="admin-stat-card">
+          <div id="statConfirmed" class="admin-stat-val" style="color: #2B6CB0;">0</div>
+          <div class="admin-stat-lbl">Confirmed</div>
+        </div>
+        <div class="admin-stat-card">
+          <div id="statBlocked" class="admin-stat-val" style="color: #C05621;">0</div>
+          <div class="admin-stat-lbl">Calendar Overrides</div>
+        </div>
+      </div>
+
+      <!-- Main Columns Grid -->
+      <div class="admin-main-grid">
+        
+        <!-- Left Panel: Bookings Management -->
+        <div class="admin-panel-card">
+          <h3>
+            <span>Patient Appointment Log</span>
+          </h3>
+
+          <!-- Table Filters -->
+          <div class="admin-filters">
+            <div class="form-group" style="gap:4px;">
+              <input type="text" id="searchQuery" class="form-control" placeholder="Search by Patient Name or Phone...">
+            </div>
+            
+            <div class="form-group" style="gap:4px;">
+              <select id="filterStatus" class="form-control">
+                <option value="All">All Statuses</option>
+                <option value="New">New</option>
+                <option value="Confirmed">Confirmed</option>
+                <option value="Completed">Completed</option>
+                <option value="Cancelled">Cancelled</option>
+              </select>
+            </div>
+
+            <div class="form-group" style="gap:4px;">
+              <input type="date" id="filterDate" class="form-control" placeholder="Filter by Date">
+            </div>
+          </div>
+
+          <!-- Appointments Table -->
+          <div class="admin-table-container">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Patient Detail</th>
+                  <th>Phone Number</th>
+                  <th>Appt Date</th>
+                  <th>Slot Hour</th>
+                  <th>Concern Area</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="bookingsTableBody">
+                <!-- Rendered dynamically by admin.js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Right Panel: Schedule Overrides (Closed/Unavailable days) -->
+        <div>
+          <div class="admin-panel-card">
+            <h3>Schedule Override Manager</h3>
+            <p style="font-size:0.85rem; color:var(--gray-text); margin-bottom:18px;">Set days as closed or doctor unavailable (e.g. surgeries, conference leaves) to block public booking.</p>
+            
+            <form id="blockForm" autocomplete="off">
+              <div class="form-group" style="margin-bottom:12px;">
+                <label for="blockDate">Override Date</label>
+                <input type="date" id="blockDate" class="form-control" required>
+              </div>
+
+              <div class="form-group" style="margin-bottom:12px;">
+                <label for="blockType">Override Status Type</label>
+                <select id="blockType" class="form-control" required>
+                  <option value="Closed">Closed (e.g. State Holiday)</option>
+                  <option value="Unavailable">Doctor Unavailable (e.g. Surgery Day)</option>
+                </select>
+              </div>
+
+              <div class="form-group" style="margin-bottom:20px;">
+                <label for="blockReason">Reason Label (Shown on calendar)</label>
+                <input type="text" id="blockReason" class="form-control" placeholder="e.g. Clinic Closed for State Holiday" required>
+              </div>
+
+              <button type="submit" class="btn btn-primary" style="width: 100%;">Add Schedule Block</button>
+            </form>
+          </div>
+
+          <div class="admin-panel-card">
+            <h3>Active Calendar Blocks</h3>
+            <div id="blockedDaysList" class="blocked-days-list">
+              <!-- Rendered dynamically by admin.js -->
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/admin.js"></script>
+</body>
+</html>

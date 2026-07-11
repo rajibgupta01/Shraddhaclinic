@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Public Doctor Schedule Calendar - Shraddha Joint & Sports Clinic</title>
+  <meta name="description" content="View Dr. Rahul Shukla's public schedule calendar. Real-time patient slots availability, closed days, and direct appointment scheduling for orthopedic consultations.">
+  <link rel="icon" type="image/png" href="assets/img/favicon.png">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+  <!-- Spatial Background Blobs -->
+  <div class="blur-blobs-container">
+    <div class="blur-blob blur-blob-1"></div>
+    <div class="blur-blob blur-blob-2"></div>
+  </div>
+
+  <!-- Sticky Header -->
+  <header>
+    <div class="header-container">
+      <a href="index.html" class="logo-link">
+        <img src="assets/img/logo-header.jpg" alt="Shraddha Joint & Sports Clinic">
+      </a>
+
+      <button class="mobile-nav-toggle" aria-label="Toggle Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <nav class="nav-menu">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="about.html" class="nav-link">About Doctor</a>
+        <a href="services.html" class="nav-link">Services</a>
+        <a href="schedule.html" class="nav-link">Schedule</a>
+        <a href="appointment.html" class="nav-link">Book Appointment</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </nav>
+
+      <div class="header-ctas">
+        <a href="tel:+919713154247" class="btn btn-outline" style="padding: 8px 18px; font-size: 0.9rem;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          Call
+        </a>
+        <a href="appointment.html" class="btn btn-accent" style="padding: 8px 18px; font-size: 0.9rem;">Book Now</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Page Header banner -->
+  <section class="bg-light" style="padding: 48px 0; border-bottom: 1px solid var(--border-color);">
+    <div class="container text-center">
+      <h1 style="font-size: 2.5rem; margin-bottom: 8px;">Doctor Schedule Calendar</h1>
+      <p style="color: var(--gray-text); font-size: 1.1rem; max-width: 600px; margin: 0 auto;">Select an available date and pick your preferred consultation hour.</p>
+    </div>
+  </section>
+
+  <!-- Calendar Interface -->
+  <section>
+    <div class="container">
+      <div class="calendar-layout">
+        
+        <!-- Left Side: Interactive Calendar -->
+        <div class="calendar-card">
+          <div class="calendar-controls">
+            <span id="monthYearDisplay" class="calendar-month-year">July 2026</span>
+            <div class="calendar-nav-btns">
+              <button id="todayBtn" class="btn btn-outline" style="padding: 8px 16px; font-size:0.85rem;">Today</button>
+              <button id="prevMonthBtn" class="calendar-nav-btn" aria-label="Previous Month">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+              </button>
+              <button id="nextMonthBtn" class="calendar-nav-btn" aria-label="Next Month">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+              </button>
+            </div>
+          </div>
+          <div class="calendar-weekdays-grid">
+            <div class="calendar-weekday">Sun</div>
+            <div class="calendar-weekday">Mon</div>
+            <div class="calendar-weekday">Tue</div>
+            <div class="calendar-weekday">Wed</div>
+            <div class="calendar-weekday">Thu</div>
+            <div class="calendar-weekday">Fri</div>
+            <div class="calendar-weekday">Sat</div>
+          </div>
+          <div id="calendarGrid" class="calendar-grid">
+            <!-- Rendered dynamically by calendar.js -->
+          </div>
+
+          <!-- Color Legend -->
+          <div class="calendar-legend">
+            <div class="legend-item">
+              <div class="legend-dot status-available"></div>
+              <span>Available (0-3 Booked)</span>
+            </div>
+            <div class="legend-item">
+              <div class="legend-dot status-limited"></div>
+              <span>Limited Availability (4-5 Booked)</span>
+            </div>
+            <div class="legend-item">
+              <div class="legend-dot status-booked"></div>
+              <span>Fully Booked (6/6 slots)</span>
+            </div>
+            <div class="legend-item">
+              <div class="legend-dot status-closed"></div>
+              <span>Weekly Closed (Sun / Holidays)</span>
+            </div>
+            <div class="legend-item">
+              <div class="legend-dot status-unavailable"></div>
+              <span>Doctor Unavailable</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Side: Details & Slot Selector -->
+        <div class="details-card">
+          <h3>Daily Availability</h3>
+          <p id="selectedDateLabel" class="selected-date-str">Tuesday, July 7, 2026</p>
+          
+          <div style="margin-bottom: 20px; font-size: 0.9rem; color: var(--gray-text);">
+            Click an active date on the calendar, then select a preferred slot below:
+          </div>
+
+          <div id="slotsContainer" class="slots-grid">
+            <!-- Rendered dynamically by calendar.js -->
+          </div>
+
+          <button id="bookBtn" class="btn btn-accent" style="width: 100%; display: none;" disabled>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            Proceed to Details
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-about">
+          <h3>Shraddha Joint & Sports Clinic</h3>
+          <p>Led by expert orthopedic surgeon Dr. Rahul Shukla, we provide dedicated clinical consultation and surgical solutions for joints, hips, knees, fractures, and sports-related injuries.</p>
+          <div class="footer-hours-strip">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            Open Monday - Saturday: Until 8:00 PM
+          </div>
+        </div>
+        
+        <div class="footer-links">
+          <h4>Quick Links</h4>
+          <ul class="footer-links-list">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Doctor</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="schedule.html">Public Schedule</a></li>
+            <li><a href="appointment.html">Book Appointment</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="admin.html" style="opacity: 0.6;">Admin Dashboard</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-contact">
+          <h4>Get in Touch</h4>
+          <ul class="footer-contact-list">
+            <li>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"/><circle cx="12" cy="10" r="3"/></svg>
+              <span>1509, Home Science College Rd, Napier Town, Jabalpur, MP 482002</span>
+            </li>
+            <li>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              <span>+91 97131 54247<br>+91 72476 30605</span>
+            </li>
+            <li>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+              <a href="https://wa.me/919713154247" target="_blank" style="color: #25D366; font-weight: 500;">Chat on WhatsApp</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p class="footer-disclaimer">
+          Disclaimer: Information provided on this website is for appointment coordination and clinic hours reference only. Please consult Dr. Rahul Shukla directly for professional medical advice, diagnosis, or treatments.
+        </p>
+        <p class="footer-copyright">
+          &copy; 2026 Shraddha Joint & Sports Clinic. All rights reserved. | Google Rating: 5.0 ★ (68 reviews)
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/calendar.js"></script>
+</body>
+</html>
